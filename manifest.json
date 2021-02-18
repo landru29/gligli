@@ -1,0 +1,16 @@
+  {
+    "name": "gligli",
+    "version": "1.0",
+    "manifest_version": 2,
+    "description": "Transfer Authentication token to local running application",
+    "browser_action": {
+        "default_icon" : "icons/logo.png",
+        "default_popup": "pages/main.html",
+        "default_title": "sea-race Session"
+    },
+      "content_scripts": [{
+        "matches": ["*://*.chezgligli.net/*"],
+        "js": ["content.js", "jquery.js"]
+      }],   
+      "permissions": ["activeTab", "downloads"]
+}
