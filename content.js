@@ -5,13 +5,16 @@ function getBase64Image(img) {
     var ctx = canvas.getContext("2d");
     ctx.drawImage(img, 0, 0);
     var dataURL = canvas.toDataURL("image/png");
-    return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+    return dataURL;
 }
 
 var extractResponses = function() {
     return $( "table.texte.cadre" )
         .map(function() {
             const attached = $(this).find("td.qcm_examen_question img");
+            if (attached.length) {
+                attached.removeAttr("height");
+            }
             const explainationAttached = $(this).find("td.qcm_examen_correction img");
             
             const resp=$(this).find("td.qcm_examen_reponses_bonne,td.qcm_examen_reponses").map(
@@ -24,9 +27,9 @@ var extractResponses = function() {
             ).toArray();
 
             return {
-                id:                      $(this).find("td.qcm_examen_no").html(),
+                id:                      $(this).find("td.qcm_examen_no").text().replace(/[^\d].*/, ''),
                 question:                $(this).find("td.qcm_examen_question").text().replace('<br>', "\n"),
-                explaination:            $(this).find("td.qcm_examen_correction").text().replace('<br>', "\n"),
+                explaination:            $(this).find("td.qcm_examen_correction div.commentaires-list").text().replace('<br>', "\n"),
                 attachedB64:             attached.length ? getBase64Image(attached.get(0)) : "",
                 explainationAttachedB64: explainationAttached.length ? getBase64Image(explainationAttached.get(0)) : null,
                 responses:               resp,
