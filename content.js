@@ -26,11 +26,15 @@ var extractResponses = function() {
                 }
             ).toArray();
 
+            const question = $(this).find("td.qcm_examen_question").text().replace('<br>', "\n") 
+                           + "\n" 
+                           + $(this).find("td.qcm_examen_options").text().replace('<br>', "\n")
+
             return {
                 id:                      $(this).find("td.qcm_examen_no").text().replace(/[^\d].*/, ''),
-                question:                $(this).find("td.qcm_examen_question").text().replace('<br>', "\n"),
+                question:                question,
                 explaination:            $(this).find("td.qcm_examen_correction div.commentaires-list").text().replace('<br>', "\n"),
-                attachedB64:             attached.length ? getBase64Image(attached.get(0)) : "",
+                attachedB64:             attached.length ? getBase64Image(attached.get(0)) : null,
                 explainationAttachedB64: explainationAttached.length ? getBase64Image(explainationAttached.get(0)) : null,
                 responses:               resp,
             };
