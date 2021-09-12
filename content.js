@@ -14,6 +14,7 @@ var extractResponses = function() {
             const attached = $(this).find("td.qcm_examen_question img");
             if (attached.length) {
                 attached.removeAttr("height");
+                attached.removeAttr("width");
             }
             const explainationAttached = $(this).find("td.qcm_examen_correction img");
             
