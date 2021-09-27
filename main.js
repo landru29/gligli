@@ -13,11 +13,13 @@ document.addEventListener('DOMContentLoaded', function() {
     
 
 
-    var selector = document.getElementById("session");
+    /*var selector = document.getElementById("session");
     if (selector) {
         selector.addEventListener('click', function() {
             GrabGligli();
         });
-    }
+    }*/
+
+    GrabGligli();
 
 });
